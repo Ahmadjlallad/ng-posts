@@ -2,13 +2,26 @@
   <div
     class="col-lg-4 mt-3 col-sm-1 col-md-auto"
     *ngFor="let post of posts; trackBy: userTrackBy"
+    (click)="goToPost(post.id)"
   >
-    <app-post
-      (click)="goToPost(post.id)"
-      [isPost]="false"
-      [post]="post"
-    ></app-post>
+    <div class="card h-100 class">
+      <app-user-info [userId]="post.userId"></app-user-info>
+      <section class="d-flex flex-column justify-content-center col">
+        <div class="align-self-start mt-3 font-weight-bolder">
+          Title:
+          <p class="text col">
+            {{ post.title }}
+          </p>
+        </div>
+        <div class="font-weight">
+          {{ post.body.substring(0, 30) }}
+          <div class="font-weight-bolder">"...read more"</div>
+        </div>
+      </section>
+    </div>
   </div>
-  <app-pagination></app-pagination>
+  <div class="row justify-content-center w-100">
+    <app-pagination></app-pagination>
+  </div>
 </div>
 <!-- //[postsNumber]="postsService.posts.length" -->

@@ -12,6 +12,7 @@ import { NotFoundComponent } from './component/not-found/not-found.component';
 import { ContactUsComponent } from './component/contact-us/contact-us.component';
 import { PostsServes } from './shared/posts.service';
 import { PaginationComponent } from './component/pagination/pagination.component';
+import { UserInfoComponent } from './component/posts/user-info/user-info.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { PaginationComponent } from './component/pagination/pagination.component
     NotFoundComponent,
     ContactUsComponent,
     PaginationComponent,
+    UserInfoComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, NgbModule, HttpClientModule],
   providers: [PostsServes],

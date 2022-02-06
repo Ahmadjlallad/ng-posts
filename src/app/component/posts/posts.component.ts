@@ -1,6 +1,5 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Post } from 'src/app/shared/post.interface';
 import { PostsServes } from 'src/app/shared/posts.service';
 
@@ -11,53 +10,39 @@ import { PostsServes } from 'src/app/shared/posts.service';
 })
 export class PostsComponent implements OnInit {
   filter: Post[] = [];
+
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
     public postsService: PostsServes,
-    private http: HttpClient
+    private route: ActivatedRoute
   ) {}
-  posts: Post[] = [
-    {
+  posts: Post[] = [];
+  goToPost(postId: number) {
+    this.router.navigate(['posts', postId]);
+  }
+  userTrackBy(_: number, post: Post) {
+    return post.id + post.userId;
+  }
+  ngOnInit(): void {
+    this.postsService.getPosts().subscribe((data) => {
+      this.posts = data.slice(0, 6);
+      this.postsService.posts = data;
+      this.postsService.changePagination.next(data.length);
+      this.route.params.subscribe((param) => {
+        this.posts = this.postsService.posts.slice(
+          (+param['pageId'] - 1) * 6,
+          +param['pageId'] * 6
+        );
+      });
+    });
+  }
+}
+/*
+ {
       userId: 1,
       id: 1,
       title:
         'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
       body: 'quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto',
     },
-  ];
-  goToPost(postId: number) {
-    this.router.navigate(['posts', postId]);
-  }
-  userTrackBy(index: number, post: Post) {
-    return post.id + post.userId;
-  }
-  ngOnInit(): void {
-    this.route.params.subscribe({
-      next: (params) => {
-        if (params['pageId'] && this.postsService.posts.length > 1) {
-          this.posts = this.postsService.posts.slice(
-            +params['pageId'] - 1,
-            +params['pageId'] + 5
-          );
-        }
-      },
-    });
-    if (
-      this.route.snapshot.params['pageId'] &&
-      this.postsService.posts.length > 1
-    ) {
-      this.posts = this.postsService.posts.slice(
-        +this.route.snapshot.params['pageId'] - 1,
-        +this.route.snapshot.params['pageId'] + 6
-      );
-    } else
-      this.http
-        .get<Post[]>('https://jsonplaceholder.typicode.com/posts')
-        .subscribe((data) => {
-          this.posts = data.slice(0, 6);
-          this.postsService.posts = data;
-          this.postsService.changePagination.next(data.length);
-        });
-  }
-}
+*/

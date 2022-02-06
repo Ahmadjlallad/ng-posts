@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { PostsServes } from 'src/app/shared/posts.service';
 
 @Component({
@@ -7,19 +8,19 @@ import { PostsServes } from 'src/app/shared/posts.service';
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.css'],
 })
-export class PaginationComponent implements OnInit {
+export class PaginationComponent implements OnInit, OnDestroy {
   postsNumbers = 0;
   currentParam = 1;
+  currentParamSub: any;
   constructor(
     private postsService: PostsServes,
     public router: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.postsService.changePagination.subscribe({
+    this.currentParamSub = this.postsService.changePagination.subscribe({
       next: (num) => {
         this.postsNumbers = Math.ceil(num / 6);
-        console.log(this.postsNumbers, this.currentParam);
       },
     });
     this.router.params.subscribe({
@@ -27,5 +28,8 @@ export class PaginationComponent implements OnInit {
         this.currentParam = param['pageId'] ?? 1;
       },
     });
+  }
+  ngOnDestroy(): void {
+    (this.currentParamSub as Subscription).unsubscribe();
   }
 }

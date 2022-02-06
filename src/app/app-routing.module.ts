@@ -12,7 +12,6 @@ const routes: Routes = [
   },
   { path: '', component: PostsComponent },
   { path: ':pageId', component: PostsComponent },
-
   { path: 'contactUs', component: ContactUsComponent },
   { path: '**', component: NotFoundComponent },
 ];

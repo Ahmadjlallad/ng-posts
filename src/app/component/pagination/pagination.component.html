@@ -1,19 +1,47 @@
-<div class="row justify-content-start">
+<div class="row justify-content-start mt-3 align-self-center">
   <nav aria-label="..." class="col-md-5">
     <ul class="pagination">
-      <li class="page-item disabled">
-        <span class="page-link" [routerLink]="'/' + (+currentParam - 6)"
+      <li class="page-item" [class]="+currentParam === 1 ? 'disabled' : ''">
+        <span class="page-link" [routerLink]="'/' + (+currentParam - 1)"
           >Previous</span
         >
       </li>
+      <li routerLinkActive="disabled" class="page-item">
+        <a class="page-link" [routerLink]="'/' + 1">{{ 1 }}</a>
+      </li>
+
+      <li
+        routerLinkActive="disabled"
+        class="page-item"
+        *ngFor="
+          let pNumber of [].constructor(
+            +currentParam > 2 ? (+currentParam < 16 ? 3 : 1) : 2
+          );
+          let i = index
+        "
+      >
+        <a
+          class="page-link"
+          [routerLink]="
+            '/' +
+            (currentParam > 2 ? currentParam - 1 + i : i + 1 + +currentParam)
+          "
+          >{{
+            currentParam > 2 ? currentParam - 1 + i : i + 1 + +currentParam
+          }}</a
+        >
+      </li>
+
+      <li routerLinkActive="disabled" class="page-item">
+        <a class="page-link" [routerLink]="'/' + postsNumbers">{{
+          postsNumbers
+        }}</a>
+      </li>
       <li
         class="page-item"
-        *ngFor="let pNumber of [].constructor(postsNumbers); let i = index"
+        [class]="+currentParam !== +postsNumbers ? '' : 'disabled'"
       >
-        <a class="page-link" [routerLink]="'/' + (+i + 1)">{{ i + 1 }}</a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" [routerLink]="'/' + +currentParam + 6">Next</a>
+        <a class="page-link" [routerLink]="'/' + (+currentParam + 1)">Next</a>
       </li>
     </ul>
   </nav>
