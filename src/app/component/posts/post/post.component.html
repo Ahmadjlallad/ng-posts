@@ -1,0 +1,42 @@
+<div class="card h-100 class">
+  <section class="d-flex col" class="header-container">
+    <div class="d-flex align-content-center mt-3 align-items-center">
+      <img
+        src="https://www.w3schools.com/howto/img_avatar.png"
+        alt="img_avatar"
+        class="img-fluid rounded-circle mr-3 card-img"
+        [ngStyle]="{
+          maxWidth: '10%',
+          height: 'fit-content'
+        }"
+      />
+      <div class="d-flex flex-column justify-content-center">
+        <span class=""> Name: {{ user.name }} </span>
+        <span class=""> username: {{ user.username }} </span
+        ><span class=""> Email: {{ user.email }} </span>
+      </div>
+    </div>
+  </section>
+  <section class="d-flex flex-column justify-content-center col">
+    <div class="align-self-start mt-3 font-weight-bolder">
+      Title:
+      <p class="text col">
+        {{ post.title }}
+      </p>
+    </div>
+    <div class="font-weight">
+      {{ isPost ? post.body : post.body.substring(0, 30) }}
+      <div *ngIf="!isPost" class="font-weight-bolder">"...read more"</div>
+    </div>
+  </section>
+  <section class="col mt-3" *ngIf="isPost">
+    <div class="font-weight-bold">Comments</div>
+    <div class="col col-10">
+      <div class="row flex-column mt-3" *ngFor="let comment of comments">
+        <div class="col text-nowrap">Name: {{ comment.name }}</div>
+        <div class="col">Email: {{ comment.email }}</div>
+        <div class="col">{{ comment.body }}</div>
+      </div>
+    </div>
+  </section>
+</div>

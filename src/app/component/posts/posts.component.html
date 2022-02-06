@@ -1,0 +1,14 @@
+<div class="row brake">
+  <div
+    class="col-lg-4 mt-3 col-sm-1 col-md-auto"
+    *ngFor="let post of posts; trackBy: userTrackBy"
+  >
+    <app-post
+      (click)="goToPost(post.id)"
+      [isPost]="false"
+      [post]="post"
+    ></app-post>
+  </div>
+  <app-pagination></app-pagination>
+</div>
+<!-- //[postsNumber]="postsService.posts.length" -->

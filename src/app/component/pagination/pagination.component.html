@@ -1,0 +1,20 @@
+<div class="row justify-content-start">
+  <nav aria-label="..." class="col-md-5">
+    <ul class="pagination">
+      <li class="page-item disabled">
+        <span class="page-link" [routerLink]="'/' + (+currentParam - 6)"
+          >Previous</span
+        >
+      </li>
+      <li
+        class="page-item"
+        *ngFor="let pNumber of [].constructor(postsNumbers); let i = index"
+      >
+        <a class="page-link" [routerLink]="'/' + (+i + 1)">{{ i + 1 }}</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" [routerLink]="'/' + +currentParam + 6">Next</a>
+      </li>
+    </ul>
+  </nav>
+</div>
