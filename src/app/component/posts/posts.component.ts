@@ -23,17 +23,33 @@ export class PostsComponent implements OnInit {
   userTrackBy(_: number, post: Post) {
     return post.id + post.userId;
   }
+  checkPagination(data: Post[]) {
+    this.posts = data.slice(0, 6);
+    this.postsService.posts = data;
+    this.postsService.changePagination.next(data.length);
+    this.route.params.subscribe((param) => {
+      this.postsService.currentPage = +param['pageId'];
+      this.posts = this.postsService.posts.slice(
+        (+param['pageId'] - 1) * 6,
+        +param['pageId'] * 6
+      );
+    });
+  }
   ngOnInit(): void {
+    this.route.queryParams.subscribe({
+      next: (query) => {
+        if (query['search']) {
+          const filter = this.postsService.posts.filter(
+            ({ title, body }) =>
+              body.includes(query['search']) ?? title.includes(query['search'])
+          );
+          this.checkPagination(filter);
+        } else this.checkPagination(this.postsService.allPosts);
+      },
+    });
     this.postsService.getPosts().subscribe((data) => {
-      this.posts = data.slice(0, 6);
-      this.postsService.posts = data;
-      this.postsService.changePagination.next(data.length);
-      this.route.params.subscribe((param) => {
-        this.posts = this.postsService.posts.slice(
-          (+param['pageId'] - 1) * 6,
-          +param['pageId'] * 6
-        );
-      });
+      this.checkPagination(data);
+      this.postsService.allPosts = data;
     });
   }
 }

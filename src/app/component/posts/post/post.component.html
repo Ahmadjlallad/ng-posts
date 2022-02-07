@@ -15,7 +15,7 @@
     <div class="font-weight-bold">Comments</div>
     <div class="col col-10">
       <div class="row flex-column mt-3" *ngFor="let comment of comments">
-        <div class="col text-nowrap">Name: {{ comment.name }}</div>
+        <div class="col">Name: {{ comment.name }}</div>
         <div class="col">Email: {{ comment.email }}</div>
         <div class="col">{{ comment.body }}</div>
       </div>

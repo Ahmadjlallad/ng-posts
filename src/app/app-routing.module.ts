@@ -10,8 +10,8 @@ const routes: Routes = [
     path: 'posts/:postId',
     component: PostComponent,
   },
-  { path: '', component: PostsComponent },
-  { path: ':pageId', component: PostsComponent },
+  { path: '', redirectTo: 'page/1', pathMatch: 'full' },
+  { path: 'page/:pageId', component: PostsComponent },
   { path: 'contactUs', component: ContactUsComponent },
   { path: '**', component: NotFoundComponent },
 ];

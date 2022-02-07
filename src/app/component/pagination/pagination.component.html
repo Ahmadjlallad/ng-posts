@@ -2,12 +2,12 @@
   <nav aria-label="..." class="col-md-5">
     <ul class="pagination">
       <li class="page-item" [class]="+currentParam === 1 ? 'disabled' : ''">
-        <span class="page-link" [routerLink]="'/' + (+currentParam - 1)"
+        <span class="page-link" [routerLink]="'/page/' + (+currentParam - 1)"
           >Previous</span
         >
       </li>
       <li routerLinkActive="disabled" class="page-item">
-        <a class="page-link" [routerLink]="'/' + 1">{{ 1 }}</a>
+        <a class="page-link" [routerLink]="'/page/' + 1">{{ 1 }}</a>
       </li>
 
       <li
@@ -23,7 +23,7 @@
         <a
           class="page-link"
           [routerLink]="
-            '/' +
+            '/page/' +
             (currentParam > 2 ? currentParam - 1 + i : i + 1 + +currentParam)
           "
           >{{
@@ -33,7 +33,7 @@
       </li>
 
       <li routerLinkActive="disabled" class="page-item">
-        <a class="page-link" [routerLink]="'/' + postsNumbers">{{
+        <a class="page-link" [routerLink]="'/page/' + postsNumbers">{{
           postsNumbers
         }}</a>
       </li>
@@ -41,7 +41,9 @@
         class="page-item"
         [class]="+currentParam !== +postsNumbers ? '' : 'disabled'"
       >
-        <a class="page-link" [routerLink]="'/' + (+currentParam + 1)">Next</a>
+        <a class="page-link" [routerLink]="'/page/' + (+currentParam + 1)"
+          >Next</a
+        >
       </li>
     </ul>
   </nav>

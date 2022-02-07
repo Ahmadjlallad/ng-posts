@@ -13,6 +13,7 @@ import { ContactUsComponent } from './component/contact-us/contact-us.component'
 import { PostsServes } from './shared/posts.service';
 import { PaginationComponent } from './component/pagination/pagination.component';
 import { UserInfoComponent } from './component/posts/user-info/user-info.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,13 @@ import { UserInfoComponent } from './component/posts/user-info/user-info.compone
     PaginationComponent,
     UserInfoComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, NgbModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    NgbModule,
+    HttpClientModule,
+    FormsModule,
+  ],
   providers: [PostsServes],
   bootstrap: [AppComponent],
 })

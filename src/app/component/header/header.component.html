@@ -1,10 +1,10 @@
 <nav class="navbar navbar-expand navbar-light bg-light">
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
+    <ul class="navbar-nav mr-auto adjust-nav">
       <li class="nav-item">
         <a
           class="nav-link"
-          routerLink="/1"
+          routerLink="/page/1"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"
           >Home</a
@@ -16,15 +16,31 @@
         >
       </li>
     </ul>
-    <form class="form-inline">
+    <form
+      class="form-inline clear-search"
+      (ngSubmit)="search(f)"
+      #f="ngForm"
+      required
+    >
       <input
-        class="form-control mr-sm-2"
+        required
+        ngModel
+        name="search"
+        class="form-control"
         type="search"
         placeholder="Search"
         aria-label="Search"
       />
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+      <button class="btn btn-outline-success my-2 my-sm-0 ml-3" type="submit">
         Search
+      </button>
+      <button
+        class="btn btn-outline-info my-2 my-sm-0 ml-3"
+        type="button"
+        *ngIf="checkSearch"
+        (click)="clearSearch()"
+      >
+        Clear Search
       </button>
     </form>
   </div>

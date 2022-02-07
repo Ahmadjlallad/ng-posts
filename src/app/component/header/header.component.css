@@ -1,0 +1,8 @@
+@media screen and (max-width: 768px) {
+  .clear-search > button {
+    display: none !important;
+  }
+  .adjust-nav {
+    flex-direction: column !important;
+  }
+}

@@ -17,12 +17,22 @@ export class UserInfoComponent implements OnInit, OnChanges {
   @Input('userId') userId: number;
   user: User;
   constructor(private userService: UserService) {}
+  checkIfUserStored() {
+    const checkUser = this.userService.users.find(
+      ({ id }) => id === this.userId
+    );
+    if (checkUser) {
+      this.user = checkUser;
+    } else
+      this.userService.getUser(this.userId).subscribe({
+        next: (data) => {
+          this.user = data;
+          this.userService.users.push(data);
+        },
+      });
+  }
   ngOnChanges(): void {
-    this.userService.getUser(this.userId).subscribe({
-      next: (data) => {
-        this.user = data;
-      },
-    });
+    this.checkIfUserStored();
   }
   ngOnInit(): void {}
 }
