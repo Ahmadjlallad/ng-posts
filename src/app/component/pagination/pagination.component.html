@@ -7,7 +7,12 @@
         >
       </li>
       <li routerLinkActive="disabled" class="page-item">
-        <a class="page-link" [routerLink]="'/page/' + 1">{{ 1 }}</a>
+        <a
+          queryParamsHandling="merge"
+          class="page-link"
+          [routerLink]="'/page/' + 1"
+          >{{ 1 }}</a
+        >
       </li>
 
       <li
@@ -22,6 +27,7 @@
       >
         <a
           class="page-link"
+          queryParamsHandling="merge"
           [routerLink]="
             '/page/' +
             (currentParam > 2 ? currentParam - 1 + i : i + 1 + +currentParam)
@@ -33,15 +39,21 @@
       </li>
 
       <li routerLinkActive="disabled" class="page-item">
-        <a class="page-link" [routerLink]="'/page/' + postsNumbers">{{
-          postsNumbers
-        }}</a>
+        <a
+          class="page-link"
+          [routerLink]="'/page/' + postsNumbers"
+          queryParamsHandling="merge"
+          >{{ postsNumbers }}</a
+        >
       </li>
       <li
         class="page-item"
         [class]="+currentParam !== +postsNumbers ? '' : 'disabled'"
       >
-        <a class="page-link" [routerLink]="'/page/' + (+currentParam + 1)"
+        <a
+          class="page-link"
+          [routerLink]="'/page/' + (+currentParam + 1)"
+          queryParamsHandling="merge"
           >Next</a
         >
       </li>
